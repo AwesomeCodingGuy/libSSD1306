@@ -1,0 +1,37 @@
+{
+  "environments": [
+    {
+      "ProjectName": "libSSD1306"
+    }
+  ],
+  "configurations": [
+    {
+      "name": "Pi-Debug",
+      "generator": "Unix Makefiles",
+      "remoteMachineName": "${defaultRemoteMachineName}",
+      "configurationType": "Debug",
+      "remoteCMakeListsRoot": "/var/tmp/src/${env.ProjectName}/${name}",
+      "cmakeExecutable": "/usr/local/bin/cmake",
+      "buildRoot": "${env.USERPROFILE}\\CMakeBuilds\\${env.ProjectName}\\build\\${name}",
+      "installRoot": "${env.USERPROFILE}\\CMakeBuilds\\${env.ProjectName}\\install\\${name}",
+      "remoteBuildRoot": "/var/tmp/build/${env.ProjectName}/build/${name}",
+      "remoteInstallRoot": "/var/tmp/build/${env.ProjectName}/install/${name}",
+      "remoteCopySources": true,
+      "remoteCopySourcesOutputVerbosity": "Normal",
+      "remoteCopySourcesConcurrentCopies": "10",
+      "remoteCopySourcesMethod": "rsync",
+      "remoteCopySourcesExclusionList": [
+        ".vs",
+        ".git"
+      ],
+      "rsyncCommandArgs": "-t --delete --delete-excluded",
+      "remoteCopyBuildOutput": false,
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [
+        "linux_arm"
+      ]
+    }
+  ]
+}
