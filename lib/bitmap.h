@@ -9,6 +9,12 @@
 class Bitmap : public Framebuffer
 {
 public:
+	enum class Format : uint8_t
+	{
+		Bit		= 0x00,
+		Byte	= 0x01
+	};
+
 	Bitmap() = delete;
 	Bitmap(int width, int height);
 
@@ -19,7 +25,7 @@ public:
 	void fillWith(uint8_t value) override;
 
 	bool load(const std::string &filename);
-	bool save(const std::string &filename);
+	bool save(const std::string &filename, Format fmt = Format::Bit);
 
 private:
 
