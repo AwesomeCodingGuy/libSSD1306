@@ -38,13 +38,16 @@ public:
 	bool isPixelInside(int x, int y) const;
 	bool isPixelInside(Pixel p) const;
 
+	void setBuffer(const Framebuffer &bitmap, Pixel offset);
+	void setBuffer(const Framebuffer &bitmap, int offsetX, int offsetY);
+
 	int width() const;
 	int height() const;
 
 protected:
 	virtual void fillWith(uint8_t value) = 0;
 
-private:
+protected:
 	int _width;
 	int _height;
 };

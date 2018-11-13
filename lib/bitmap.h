@@ -18,8 +18,8 @@ public:
 	bool isPixelSet(int x, int y) const override;
 	void fillWith(uint8_t value) override;
 
-	bool load(std::string filename);
-	bool save(std::string filename);
+	bool load(const std::string &filename);
+	bool save(const std::string &filename);
 
 private:
 

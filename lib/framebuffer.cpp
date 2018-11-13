@@ -1,5 +1,7 @@
 #include "framebuffer.h"
 
+#include <algorithm>
+
 PixelStyle oppositeStyle(PixelStyle style)
 {
 	PixelStyle opposite{PixelStyle::None};
@@ -90,6 +92,29 @@ bool Framebuffer::isPixelInside(int x, int y) const
 bool Framebuffer::isPixelInside(Pixel p) const
 {
 	return isPixelInside(p.x(), p.y());
+}
+
+void Framebuffer::setBuffer(const Framebuffer &bitmap, Pixel offset)
+{
+	setBuffer(bitmap, offset.x(), offset.y());
+}
+
+void Framebuffer::setBuffer(const Framebuffer &bitmap, int offsetX, int offsetY)
+{
+	int xStart = std::max(0, offsetX);
+	int xEnd = std::min(width(), offsetX + bitmap.width());
+	int yStart = std::max(0, offsetY);
+	int yEnd = std::min(height(), offsetY + bitmap.height());
+
+	for(int y = yStart; y < yEnd; ++y) {
+		for(int x = xStart; x < xEnd; ++x) {
+			if(bitmap.isPixelSet(x - offsetX, y - offsetY)) {
+				setPixel(x, y);
+			} else {
+				unsetPixel(x, y);
+			}
+		}
+	}
 }
 
 int Framebuffer::width() const

@@ -31,5 +31,31 @@ int main(int argc, char **argv)
 	oled.clear();
 	oled.displayUpdate();
 
+	std::string file = "/var/tmp/src/libSSD1306/Pi-Debug/samples/bitSplash.bitmap";
+
+	Bitmap b(126, 64);
+	b.load(file.c_str());
+	oled.setBuffer(b, 0, 0);
+	oled.displayUpdate();
+	getchar();
+
+
+
+	std::string file2 = "/var/tmp/src/libSSD1306/Pi-Debug/samples/bitSplash.bitmap";
+
+	Bitmap b2(126, 64);
+	b2.load(file2.c_str());
+	oled.setBuffer(b2, 0, 0);
+
+	drawCircle(Pixel(32, 32), 30, PixelStyle::Toggle, oled);
+	drawCircle(Pixel(96, 32), 15, PixelStyle::Toggle, oled);
+	
+	
+	oled.displayInverse();
+
+
+	oled.displayUpdate();
+
+	getchar();
 	return 0;
 }
