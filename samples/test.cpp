@@ -46,7 +46,7 @@ int main(int argc, char **argv)
 	std::string file2 = "/var/tmp/src/libSSD1306/Pi-Debug/samples/byteSplash.bitmap";
 	std::string file4 = "/var/tmp/src/libSSD1306/Pi-Debug/samples/byteSplash2.bitmap";
 
-	Bitmap b2(128, 64);
+	Bitmap b2(10, 10);
 	b2.load(file2);
 	b2.save(file4, Bitmap::Format::Byte);
 	oled.setBuffer(b2, 0, 0);

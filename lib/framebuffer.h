@@ -47,7 +47,9 @@ public:
 protected:
 	virtual void fillWith(uint8_t value) = 0;
 
-protected:
+	void resize(int width, int height);
+
+private:
 	int _width;
 	int _height;
 };

@@ -44,8 +44,6 @@ private:
 		int bit;
 	};
 
-	int _width;
-	int _height;
 	int _bytesPerRow;
 	std::vector<std::vector<uint8_t>> _data;
 };

@@ -89,7 +89,7 @@ bool Bitmap::load(const std::string &filename)
 		if(inFile) {
 			if((memcmp(&header, &magicFileNumber.bytes, 4) == 0) && header[15] == headerEndByte) {
 				uint16_t newWidth = (header[4] << 8) | header[5];
-				uint16_t height = (header[6] << 8) | header[7];
+				uint16_t newHeight = (header[6] << 8) | header[7];
 				Format fmt = static_cast<Format>(header[8]);
 				int bytesPerRowRead = 0;
 				if(fmt == Format::Bit) {
@@ -101,24 +101,23 @@ bool Bitmap::load(const std::string &filename)
 				inFile.seekg(0, inFile.end);
 				int length = inFile.tellg();
 				inFile.seekg(16, inFile.beg);
-				if(length != 16 + bytesPerRowRead * height) {
+				if(length != 16 + bytesPerRowRead * newHeight) {
 					std::string what("Invalid file length " + filename + " " __FILE__ " (" + std::to_string(__LINE__) + ")");
 					throw std::system_error(errno, std::system_category(), what);
 				}
 
-				this->_height = height;
-				this->_width = newWidth;
-				this->_bytesPerRow = (this->_width + 7) / 8;
+				this->resize(newWidth, newHeight);
+				this->_bytesPerRow = (this->width() + 7) / 8;
 				this->_data.clear();
-				this->_data.resize(this->_height, std::vector<uint8_t>(this->_bytesPerRow, 0x00));
+				this->_data.resize(this->height(), std::vector<uint8_t>(this->_bytesPerRow, 0x00));
 				if(fmt == Format::Bit) {
-					for(int h = 0; h < height; ++h) {
+					for(int h = 0; h < this->height(); ++h) {
 						inFile.read((char*)&(this->_data[h])[0], this->_bytesPerRow);
 					}
 				} else if(fmt == Format::Byte) {
 					char c;
-					for(int h = 0; h < this->_height; ++h) {
-						for(int w = 0; w < this->_width; ++w) {
+					for(int h = 0; h < this->height(); ++h) {
+						for(int w = 0; w < this->width(); ++w) {
 							c = inFile.get();
 							if(c != 0x00) {
 								setPixel(w, h);
@@ -157,12 +156,12 @@ bool Bitmap::save(const std::string &filename, Format fmt)
 		header[8] = static_cast<uint8_t>(fmt);
 		outFile.write((char*)&header[0], 16);
 		if(fmt == Format::Bit) {
-			for(int h = 0; h < height(); ++h) {
+			for(int h = 0; h < this->height(); ++h) {
 				outFile.write((char*)_data[h].data(), _data[h].size());
 			}
 		} else if(fmt == Format::Byte) {
-			for(int h = 0; h < height(); ++h) {
-				for(int w = 0; w < width(); ++w) {
+			for(int h = 0; h < this->height(); ++h) {
+				for(int w = 0; w < this->width(); ++w) {
 					outFile.put(isPixelSet(w, h) ? 0xFF : 0x00);
 				}
 			}

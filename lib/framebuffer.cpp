@@ -117,6 +117,12 @@ void Framebuffer::setBuffer(const Framebuffer &bitmap, int offsetX, int offsetY)
 	}
 }
 
+void Framebuffer::resize(int width, int height)
+{
+	this->_width	= width;
+	this->_height	= height;
+}
+
 int Framebuffer::width() const
 {
 	return this->_width;
