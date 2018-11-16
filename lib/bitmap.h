@@ -17,6 +17,7 @@ public:
 
 	Bitmap() = delete;
 	Bitmap(int width, int height);
+	Bitmap(int width, int height, std::vector<uint8_t> data);
 
 	void setPixel(int x, int y) override;
 	void unsetPixel(int x, int y) override;

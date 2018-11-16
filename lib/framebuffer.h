@@ -40,6 +40,8 @@ public:
 
 	void setBuffer(const Framebuffer &bitmap, Pixel offset);
 	void setBuffer(const Framebuffer &bitmap, int offsetX, int offsetY);
+	void setBuffer(const Framebuffer &bitmap, PixelStyle style, Pixel offset);
+	void setBuffer(const Framebuffer &bitmap, PixelStyle style, int offsetX, int offsetY);
 
 	int width() const;
 	int height() const;

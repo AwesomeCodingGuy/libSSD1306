@@ -7,6 +7,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
 
 add_library(SSD1306 STATIC 
 	lib/oled.cpp
+	lib/font.cpp
 	lib/framebuffer.cpp
 	lib/bitmap.cpp
 	lib/graphics.cpp)

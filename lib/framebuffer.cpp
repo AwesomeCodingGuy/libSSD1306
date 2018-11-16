@@ -117,6 +117,30 @@ void Framebuffer::setBuffer(const Framebuffer &bitmap, int offsetX, int offsetY)
 	}
 }
 
+void Framebuffer::setBuffer(const Framebuffer &bitmap, PixelStyle style, Pixel offset)
+{
+	setBuffer(bitmap, style, offset.x(), offset.y());
+}
+
+void Framebuffer::setBuffer(const Framebuffer &bitmap, PixelStyle style, int offsetX, int offsetY)
+{
+	PixelStyle opposite = oppositeStyle(style);
+	int xStart = std::max(0, offsetX);
+	int xEnd = std::min(width(), offsetX + bitmap.width());
+	int yStart = std::max(0, offsetY);
+	int yEnd = std::min(height(), offsetY + bitmap.height());
+
+	for(int y = yStart; y < yEnd; ++y) {
+		for(int x = xStart; x < xEnd; ++x) {
+			if(bitmap.isPixelSet(x - offsetX, y - offsetY)) {
+				setPixel(x, y, style);
+			} else {
+				setPixel(x, y, opposite);
+			}
+		}
+	}
+}
+
 void Framebuffer::resize(int width, int height)
 {
 	this->_width	= width;

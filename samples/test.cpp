@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "font.h"
 #include "oled.h"
 #include "bitmap.h"
 #include "graphics.h"
@@ -8,6 +9,17 @@
 
 int main(int argc, char **argv)
 {
+	std::string fontfile = "/var/tmp/src/libSSD1306/Pi-Debug/lib/fonts/OledFont8x8.oledfont";
+	Font font(fontfile);
+
+
+	Oled_128x64 oled("/dev/i2c-1", OLED_ADDR);
+
+	font.drawString(oled, " !   Hello   ! \nthis is a Test\n\nEnjoy    :)", Pixel(0,8), PixelStyle::Set);
+	oled.displayUpdate();
+
+
+#if 0
 	Bitmap buffer = Bitmap(50, 50);
 	buffer.setPixel(34, 34);
 	Oled_128x64 oled("/dev/i2c-1", OLED_ADDR);
@@ -59,6 +71,7 @@ int main(int argc, char **argv)
 
 
 	oled.displayUpdate();
+#endif
 
 	getchar();
 	return 0;

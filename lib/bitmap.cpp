@@ -29,6 +29,14 @@ Bitmap::Bitmap(int width, int height)
 	_data.resize(this->height(), std::vector<uint8_t>(_bytesPerRow, 0x00));
 }
 
+Bitmap::Bitmap(int width, int height, std::vector<uint8_t> data)
+	: Bitmap(width, height)
+{
+	for(int h = 0; h < height; ++h) {
+		std::copy_n(data.begin() + (_bytesPerRow * h), _bytesPerRow, _data[h].begin());
+	}
+}
+
 void Bitmap::setPixel(int x, int y)
 {
 	if(!isPixelInside(x, y))
