@@ -14,5 +14,9 @@ add_library(SSD1306 STATIC
 
 include_directories(${PROJECT_SOURCE_DIR}/lib)
 
-add_executable(test samples/test.cpp)
-target_link_libraries(test SSD1306)
+if(BUILD_SAMPLES)
+	message("Building with samples.")
+
+	add_executable(test samples/test.cpp)
+	target_link_libraries(test SSD1306)
+endif()
