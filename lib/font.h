@@ -16,6 +16,9 @@ public:
 	Pixel drawString(Framebuffer &frame, const char *str, const Pixel &pos, PixelStyle style);
 	Pixel drawString(Framebuffer &frame, const std::string &str, const Pixel &pos, PixelStyle style);
 
+	Bitmap getChar(uint8_t c);
+	std::vector<Bitmap> getAllChars();
+
 private:
 	bool load(const std::string &fontFile);
 

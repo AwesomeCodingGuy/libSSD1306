@@ -15,8 +15,33 @@ int main(int argc, char **argv)
 
 	Oled_128x64 oled("/dev/i2c-1", OLED_ADDR);
 
-	font.drawString(oled, " !   Hello   ! \nthis is a Test\n\nEnjoy    :)", Pixel(0,8), PixelStyle::Set);
+	char lower[8*17];
+
+	for(int i = 0; i < 8; ++i) {
+		for(int j = 0; j < 16; ++j) {
+			lower[i*17 + j] = (char)(uint8_t(i * 16 + j));
+		}
+		lower[i*17 + 16] = '\n';
+	}
+
+	char higher[8*17];
+	for(int i = 0; i < 8; ++i) {
+		for(int j = 0; j < 16; ++j) {
+			higher[i * 17 + j] = (char)(uint8_t((i + 8) * 16 + j));
+		}
+		higher[i * 17 + 16] = '\n';
+	}
+
+	lower[0] = 32;
+	lower[10] = 32;
+	font.drawString(oled, lower, Pixel(0,0), PixelStyle::Set);
+	oled.setBuffer(font.getChar(10), Pixel(10*8, 0));
 	oled.displayUpdate();
+	getchar();
+
+	font.drawString(oled, higher, Pixel(0, 0), PixelStyle::Set);
+	oled.displayUpdate();
+	getchar();
 
 
 #if 0

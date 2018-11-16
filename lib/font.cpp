@@ -101,3 +101,13 @@ bool Font::load(const std::string &fontFile)
 
 	return true;
 }
+
+Bitmap Font::getChar(uint8_t c)
+{
+	return _font[c];
+}
+
+std::vector<Bitmap> Font::getAllChars()
+{
+	return _font;
+}
