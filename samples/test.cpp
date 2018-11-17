@@ -9,39 +9,43 @@
 
 int main(int argc, char **argv)
 {
-	std::string fontfile = "/var/tmp/src/libSSD1306/Pi-Debug/lib/fonts/OledFont8x8.oledfont";
+	std::string fontfile = "/var/tmp/src/libSSD1306/Pi-Debug/lib/fonts/OledFont8x16.oledfont";
 	Font font(fontfile);
 
 
 	Oled_128x64 oled("/dev/i2c-1", OLED_ADDR);
 
-	char lower[8*17];
-
-	for(int i = 0; i < 8; ++i) {
-		for(int j = 0; j < 16; ++j) {
-			lower[i*17 + j] = (char)(uint8_t(i * 16 + j));
+	char bytes[4][8*17];
+	for(int a = 0; a < 4; ++a) {
+		for(int i = 0; i < 4; ++i) {
+			for(int j = 0; j < 16; ++j) {
+				bytes[a][i * 17 + j] = (char)(uint8_t((i + 4*a) * 16 + j));
+			}
+			bytes[a][i * 17 + 16] = '\n';
 		}
-		lower[i*17 + 16] = '\n';
 	}
 
-	char higher[8*17];
-	for(int i = 0; i < 8; ++i) {
-		for(int j = 0; j < 16; ++j) {
-			higher[i * 17 + j] = (char)(uint8_t((i + 8) * 16 + j));
-		}
-		higher[i * 17 + 16] = '\n';
-	}
-
-	lower[0] = 32;
-	lower[10] = 32;
-	font.drawString(oled, lower, Pixel(0,0), PixelStyle::Set);
+	bytes[0][0] = 32;
+	bytes[0][10] = 32;
+	std::cout << "Part 1" << std::endl;
+	font.drawString(oled, bytes[0], Pixel(0,0), PixelStyle::Set);
 	oled.setBuffer(font.getChar(10), Pixel(10*8, 0));
 	oled.displayUpdate();
 	getchar();
 
-	font.drawString(oled, higher, Pixel(0, 0), PixelStyle::Set);
+	std::cout << "Part 2" << std::endl;
+	font.drawString(oled, bytes[1], Pixel(0, 0), PixelStyle::Set);
 	oled.displayUpdate();
 	getchar();
+
+	std::cout << "Part 3" << std::endl;
+	font.drawString(oled, bytes[2], Pixel(0, 0), PixelStyle::Set);
+	oled.displayUpdate();
+	getchar();
+
+	std::cout << "Part 4" << std::endl;
+	font.drawString(oled, bytes[3], Pixel(0, 0), PixelStyle::Set);
+	oled.displayUpdate();
 
 
 #if 0
