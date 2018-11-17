@@ -1,9 +1,12 @@
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 #include "font.h"
 #include "oled.h"
 #include "bitmap.h"
 #include "graphics.h"
+#include "complex/clock.h"
 
 #define OLED_ADDR	0x3C
 
@@ -11,9 +14,22 @@ int main(int argc, char **argv)
 {
 	std::string fontfile = "/var/tmp/src/libSSD1306/Pi-Debug/lib/fonts/OledFont8x16.oledfont";
 	Font font(fontfile);
-
-
 	Oled_128x64 oled("/dev/i2c-1", OLED_ADDR);
+
+	Clock_64x64 clock;
+
+	for(int i = 0; i < 180; ++i) {
+		clock.drawNow(oled, Pixel(64, 0));
+		oled.displayUpdate();
+
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
+
+	oled.clear();
+	oled.displayUpdate();
+
+
+#if 0
 
 	char bytes[4][8*17];
 	for(int a = 0; a < 4; ++a) {
@@ -47,8 +63,7 @@ int main(int argc, char **argv)
 	font.drawString(oled, bytes[3], Pixel(0, 0), PixelStyle::Set);
 	oled.displayUpdate();
 
-
-#if 0
+//
 	Bitmap buffer = Bitmap(50, 50);
 	buffer.setPixel(34, 34);
 	Oled_128x64 oled("/dev/i2c-1", OLED_ADDR);

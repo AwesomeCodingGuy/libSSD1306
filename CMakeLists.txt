@@ -10,9 +10,11 @@ add_library(SSD1306 STATIC
 	lib/font.cpp
 	lib/framebuffer.cpp
 	lib/bitmap.cpp
-	lib/graphics.cpp)
+	lib/graphics.cpp
+	lib/complex/clock.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/lib)
+include_directories(${PROJECT_SOURCE_DIR}/lib/complex)
 
 if(BUILD_SAMPLES)
 	message("Building with samples.")
