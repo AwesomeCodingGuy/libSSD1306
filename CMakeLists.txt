@@ -21,4 +21,24 @@ if(BUILD_SAMPLES)
 
 	add_executable(test samples/test.cpp)
 	target_link_libraries(test SSD1306)
+
+	add_executable(test_clock samples/test_clock.cpp)
+	target_link_libraries(test_clock SSD1306)
+
+	add_executable(test_font samples/test_font.cpp)
+	target_link_libraries(test_font SSD1306)
+
+	message(${CMAKE_SOURCE_DIR}/lib/font/OledFont8x8.oledfont)
+	message(${CMAKE_CURRENT_BINARY_DIR}/OledFont8x8.oledfont)
+
+	add_custom_command(
+        TARGET test_font POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_SOURCE_DIR}/lib/fonts/OledFont8x8.oledfont
+                ${CMAKE_CURRENT_BINARY_DIR}/OledFont8x8.oledfont)
+	add_custom_command(
+        TARGET test_font POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_SOURCE_DIR}/lib/fonts/OledFont8x16.oledfont
+                ${CMAKE_CURRENT_BINARY_DIR}/OledFont8x16.oledfont)
 endif()
