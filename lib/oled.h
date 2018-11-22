@@ -58,8 +58,8 @@ private:
 	struct PixelBlock
 	{
 		PixelBlock();
-		std::array<uint8_t, _bufferSize> _bytes;
-		bool _dirty;
+		std::array<uint8_t, _bufferSize> bytes;
+		bool dirty;
 	};
 	std::array<PixelBlock, _blocks> _data;
 

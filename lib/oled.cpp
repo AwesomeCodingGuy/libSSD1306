@@ -73,10 +73,10 @@ void Oled_128x64::setPixel(int x, int y)
 
 	PixelOffset o{x, y};
 
-	if((this->_data[o.block]._bytes[o.byte] & (1 << o.bit)) == 0) {
-		this->_data[o.block]._bytes[o.byte] |= (1 << o.bit);
-		if(!this->_data[o.block]._dirty)
-			this->_data[o.block]._dirty = true;
+	if((this->_data[o.block].bytes[o.byte] & (1 << o.bit)) == 0) {
+		this->_data[o.block].bytes[o.byte] |= (1 << o.bit);
+		if(!this->_data[o.block].dirty)
+			this->_data[o.block].dirty = true;
 	}
 }
 
@@ -87,10 +87,10 @@ void Oled_128x64::unsetPixel(int x, int y)
 
 	PixelOffset o{x, y};
 
-	if((this->_data[o.block]._bytes[o.byte] & (1 << o.bit)) != 0) {
-		this->_data[o.block]._bytes[o.byte] &= ~(1 << o.bit);
-		if(!this->_data[o.block]._dirty)
-			this->_data[o.block]._dirty = true;
+	if((this->_data[o.block].bytes[o.byte] & (1 << o.bit)) != 0) {
+		this->_data[o.block].bytes[o.byte] &= ~(1 << o.bit);
+		if(!this->_data[o.block].dirty)
+			this->_data[o.block].dirty = true;
 	}
 }
 
@@ -101,14 +101,14 @@ void Oled_128x64::togglePixel(int x, int y)
 
 	PixelOffset o{x, y};
 
-	if((this->_data[o.block]._bytes[o.byte] & (1 << o.bit)) == 0) {
-		this->_data[o.block]._bytes[o.byte] |= (1 << o.bit);
+	if((this->_data[o.block].bytes[o.byte] & (1 << o.bit)) == 0) {
+		this->_data[o.block].bytes[o.byte] |= (1 << o.bit);
 	} else {
-		this->_data[o.block]._bytes[o.byte] &= ~(1 << o.bit);
+		this->_data[o.block].bytes[o.byte] &= ~(1 << o.bit);
 	}
 
-	if(!this->_data[o.block]._dirty) {
-		this->_data[o.block]._dirty = true;
+	if(!this->_data[o.block].dirty) {
+		this->_data[o.block].dirty = true;
 	}
 }
 
@@ -119,18 +119,18 @@ bool Oled_128x64::isPixelSet(int x, int y) const
 
 	PixelOffset o{x, y};
 
-	return this->_data[o.block]._bytes[o.byte] & (1 << o.bit);
+	return this->_data[o.block].bytes[o.byte] & (1 << o.bit);
 }
 
 void Oled_128x64::fillWith(uint8_t value)
 {
 	for(auto &block : this->_data) {
-		auto &bytes = block._bytes;
+		auto &bytes = block.bytes;
 		for(auto byte = bytes.begin() + this->_dataOffset; byte != bytes.end(); ++byte) {
 			if(*byte != value) {
 				*byte = value;
-				if(!block._dirty)
-					block._dirty = true;
+				if(!block.dirty)
+					block.dirty = true;
 			}
 		}
 	}
@@ -168,7 +168,7 @@ void Oled_128x64::displayUpdate()
 	uint8_t column = 0;
 
 	for(auto &block : this->_data) {
-		if(block._dirty) {
+		if(block.dirty) {
 			uint8_t columnLow = column & 0x0F;
 			uint8_t columnHigh = (column >> 4) & 0x0F;
 
@@ -176,11 +176,11 @@ void Oled_128x64::displayUpdate()
 			sendCommand(SET_COLUMN_START_LOW_MASK | columnLow);
 			sendCommand(SET_COLUMN_START_HIGH_MASK | columnHigh);
 
-			if(write(this->_fd, block._bytes.data(), block._bytes.size()) == -1) {
+			if(write(this->_fd, block.bytes.data(), block.bytes.size()) == -1) {
 				std::string what("Write " __FILE__ "(" + std::to_string(__LINE__) + ")");
 				throw std::system_error(errno, std::system_category(), what);
 			}
-			block._dirty = false;
+			block.dirty = false;
 		}
 
 		column += _columnsPerBlock;
@@ -261,8 +261,8 @@ void Oled_128x64::sendCommand(uint8_t command, uint8_t value1, uint8_t value2) c
 }
 
 Oled_128x64::PixelBlock::PixelBlock()
-	: _bytes{DATA, 0x00}
-	, _dirty{true}
+	: bytes{DATA, 0x00}
+	, dirty{true}
 {
 
 }
