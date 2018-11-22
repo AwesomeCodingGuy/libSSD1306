@@ -9,7 +9,7 @@
 
 int main(int argc, char **argv) 
 {
-	try {
+    try {
         Oled_128x64 oled("/dev/i2c-1", OLED_ADDR);
 
         std::cout << "Loading bitmap in byte format..." << std::endl;
@@ -40,9 +40,9 @@ int main(int argc, char **argv)
 
         oled.clear();
         oled.displayUpdate();
-	} catch(std::exception &e) {
-		std::cerr << e.what() << std::endl;
-	}
+    } catch(std::exception &e) {
+        std::cerr << e.what() << std::endl;
+    }
 
     return EXIT_SUCCESS;
 }
