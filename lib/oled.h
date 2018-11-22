@@ -1,5 +1,5 @@
-#ifndef OLED_H
-#define OLED_H
+#ifndef LIBSSD1306_OLED_H
+#define LIBSSD1306_OLED_H
 
 #include <string>
 #include <cstdint>
@@ -66,4 +66,4 @@ private:
 	int _fd;
 };
 
-#endif // OLED_H
+#endif // LIBSSD1306_OLED_H

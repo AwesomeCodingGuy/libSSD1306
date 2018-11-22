@@ -1,5 +1,5 @@
-#ifndef FRAMEBUFFER_H
-#define FRAMEBUFFER_H
+#ifndef LIBSSD1306_FRAMEBUFFER_H
+#define LIBSSD1306_FRAMEBUFFER_H
 
 #include <cstdint>
 
@@ -56,4 +56,4 @@ private:
 	int _height;
 };
 
-#endif // FRAMEBUFFER_H
+#endif // LIBSSD1306_FRAMEBUFFER_H

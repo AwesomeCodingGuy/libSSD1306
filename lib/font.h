@@ -1,5 +1,5 @@
-#ifndef FONT_H
-#define FONT_H
+#ifndef LIBSSD1306_FONT_H
+#define LIBSSD1306_FONT_H
 
 #include <vector>
 
@@ -27,4 +27,4 @@ private:
 	int _charHeight;
 };
 
-#endif // FONT_H
+#endif // LIBSSD1306_FONT_H

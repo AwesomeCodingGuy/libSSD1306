@@ -8,7 +8,7 @@ void Clock_64x64::draw(Framebuffer &frame, const Pixel &offset, time_t time)
 {
 	struct tm* tm = localtime(&time);
 
-	drawRectangle(offset, Pixel(offset.x() + _width, offset.y() + _height), PixelStyle::Unset, frame, true);
+	drawRectangle(frame, offset, Pixel(offset.x() + _width, offset.y() + _height), PixelStyle::Unset, true);
 
 	float hour		= (tm->tm_hour % 12) / 12.0;
 	float minute	= tm->tm_min / 60.0;
@@ -39,9 +39,9 @@ void Clock_64x64::drawHand(Framebuffer &frame, const Pixel &offset, float angle,
 	int xCenter = (_width / 2) + offset.x();
 	int yCenter = (_height / 2) + offset.y();
 
-	drawLine(Pixel(xCenter, yCenter),
+	drawLine(frame,
+             Pixel(xCenter, yCenter),
 			 Pixel(xCenter + int(sinf(radians) * length),
 				   yCenter - int(cosf(radians) * length)),
-			 PixelStyle::Set,
-			 frame);
+			 PixelStyle::Set);
 }

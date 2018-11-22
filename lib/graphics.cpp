@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-void drawHorizontalLine(int y, int x1, int x2, PixelStyle style, Framebuffer &frame)
+void drawHorizontalLine(Framebuffer &frame, int y, int x1, int x2, PixelStyle style)
 {
 	if(x2 < x1)
 		std::swap(x1, x2);
@@ -16,7 +16,7 @@ void drawHorizontalLine(int y, int x1, int x2, PixelStyle style, Framebuffer &fr
 	}
 }
 
-void drawVerticalLine(int x, int y1, int y2, PixelStyle style, Framebuffer &frame)
+void drawVerticalLine(Framebuffer &frame, int x, int y1, int y2, PixelStyle style)
 {
 	if(y2 < y1)
 		std::swap(y1, y2);
@@ -30,12 +30,12 @@ void drawVerticalLine(int x, int y1, int y2, PixelStyle style, Framebuffer &fram
 	}
 }
 
-void drawLine(const Pixel &p1, const Pixel &p2, PixelStyle style, Framebuffer &frame)
+void drawLine(Framebuffer &frame, const Pixel &p1, const Pixel &p2, PixelStyle style)
 {
 	if(p1.y() == p2.y()) {
-		drawHorizontalLine(p1.y(), p1.x(), p2.x(), style, frame);
+		drawHorizontalLine(frame, p1.y(), p1.x(), p2.x(), style);
 	} else if(p1.x() == p2.x()) {
-		drawVerticalLine(p1.x(), p1.y(), p2.y(), style, frame);
+		drawVerticalLine(frame, p1.x(), p1.y(), p2.y(), style);
 	} else {
 		int dx = std::abs(p1.x() - p2.x());
 		int dy = std::abs(p1.y() - p2.y());
@@ -65,7 +65,7 @@ void drawLine(const Pixel &p1, const Pixel &p2, PixelStyle style, Framebuffer &f
 	}
 }
 
-void drawRectangle(const Pixel &p1, const Pixel &p2, PixelStyle style, Framebuffer &frame, bool filled)
+void drawRectangle(Framebuffer &frame, const Pixel &p1, const Pixel &p2, PixelStyle style, bool filled)
 {
 	if(filled) {
 		int x0 = std::min(p1.x(), p2.x());
@@ -73,20 +73,20 @@ void drawRectangle(const Pixel &p1, const Pixel &p2, PixelStyle style, Framebuff
 		int y0 = std::min(p1.y(), p2.y());
 		int y1 = std::max(p1.y(), p2.y());
 
-		drawHorizontalLine(y0, x0, x1, style, frame);
+		drawHorizontalLine(frame, y0, x0, x1, style);
 		while(y0 != y1) {
 			++y0;
-			drawHorizontalLine(y0, x0, x1, style, frame);
+			drawHorizontalLine(frame, y0, x0, x1, style);
 		}
 	} else {
-		drawHorizontalLine(p1.y(), p1.x(), p2.x(), style, frame);
-		drawHorizontalLine(p2.y(), p1.x(), p2.x(), style, frame);
-		drawVerticalLine(p1.x(), p1.y(), p2.y(), style, frame);
-		drawVerticalLine(p2.x(), p1.y(), p2.y(), style, frame);
+		drawHorizontalLine(frame, p1.y(), p1.x(), p2.x(), style);
+		drawHorizontalLine(frame, p2.y(), p1.x(), p2.x(), style);
+		drawVerticalLine(frame, p1.x(), p1.y(), p2.y(), style);
+		drawVerticalLine(frame, p2.x(), p1.y(), p2.y(), style);
 	}
 }
 
-void drawCircle(const Pixel &center, int radius, PixelStyle style, Framebuffer &frame)
+void drawCircle(Framebuffer &frame, const Pixel &center, int radius, PixelStyle style)
 {
 	int f = 1 - radius;
 	int ddF_x = 0;

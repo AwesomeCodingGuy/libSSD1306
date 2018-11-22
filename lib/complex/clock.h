@@ -1,5 +1,5 @@
-#ifndef CLOCK_H
-#define CLOCK_H
+#ifndef LIBSSD1306_COMPLEX_CLOCK_H
+#define LIBSSD1306_COMPLEX_CLOCK_H
 
 #include <ctime>
 
@@ -24,4 +24,4 @@ private:
 	void drawHand(Framebuffer &frame, const Pixel &offset, float angle, int length);
 };
 
-#endif // CLOCK_H
+#endif // LIBSSD1306_COMPLEX_CLOCK_H

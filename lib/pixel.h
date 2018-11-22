@@ -1,5 +1,5 @@
-#ifndef PIXEL_H
-#define PIXEL_H
+#ifndef LIBSSD1306_PIXEL_H
+#define LIBSSD1306_PIXEL_H
 
 class Pixel
 {
@@ -24,4 +24,4 @@ private:
 	int _y;
 };
 
-#endif // PIXEL_H
+#endif // LIBSSD1306_PIXEL_H

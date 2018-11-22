@@ -1,5 +1,5 @@
-#ifndef BITMAP_H
-#define BITMAP_H
+#ifndef LIBSSD1306_BITMAP_H
+#define LIBSSD1306_BITMAP_H
 
 #include <vector>
 #include <string>
@@ -49,4 +49,4 @@ private:
 	std::vector<std::vector<uint8_t>> _data;
 };
 
-#endif // BITMAP_H
+#endif // LIBSSD1306_BITMAP_H
