@@ -28,9 +28,6 @@ if(BUILD_SAMPLES)
 	add_executable(test_font samples/test_font.cpp)
 	target_link_libraries(test_font SSD1306)
 
-	message(${CMAKE_SOURCE_DIR}/lib/font/OledFont8x8.oledfont)
-	message(${CMAKE_CURRENT_BINARY_DIR}/OledFont8x8.oledfont)
-
 	add_custom_command(
         TARGET test_font POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
@@ -41,4 +38,18 @@ if(BUILD_SAMPLES)
         COMMAND ${CMAKE_COMMAND} -E copy
                 ${CMAKE_SOURCE_DIR}/lib/fonts/OledFont8x16.oledfont
                 ${CMAKE_CURRENT_BINARY_DIR}/OledFont8x16.oledfont)
+
+	add_executable(test_bitmap samples/test_bitmap.cpp)
+	target_link_libraries(test_bitmap SSD1306)
+
+	add_custom_command(
+        TARGET test_bitmap POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_SOURCE_DIR}/lib/bitmaps/bitSplash.bitmap
+                ${CMAKE_CURRENT_BINARY_DIR}/bitSplash.bitmap)
+	add_custom_command(
+        TARGET test_bitmap POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_SOURCE_DIR}/lib/bitmaps/byteSplash.bitmap
+                ${CMAKE_CURRENT_BINARY_DIR}/byteSplash.bitmap)
 endif()
