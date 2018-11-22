@@ -11,8 +11,8 @@ class Bitmap : public Framebuffer
 public:
     enum class Format : uint8_t
     {
-        Bit		= 0x00,
-        Byte	= 0x01
+        Bit     = 0x00,
+        Byte    = 0x01
     };
 
     Bitmap() = delete;
