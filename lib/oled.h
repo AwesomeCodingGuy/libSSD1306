@@ -9,14 +9,14 @@
 
 class Oled_128x64 : public Framebuffer
 {
-    static constexpr int _width				= 128;
-    static constexpr int _height			= 64;
-    static constexpr int _bytesPerBlock		= 32;
-    static constexpr int _dataOffset		= 1;
-    static constexpr int _bufferSize		= _bytesPerBlock + _dataOffset;
-    static constexpr int _blocks			= (_width * _height) / (8 * _bytesPerBlock);
-    static constexpr int _columnsPerBlock	= _bytesPerBlock;
-    static constexpr int _columnsPerRow		= _width / _columnsPerBlock;
+    static constexpr int _width             = 128;
+    static constexpr int _height            = 64;
+    static constexpr int _bytesPerBlock     = 32;
+    static constexpr int _dataOffset        = 1;
+    static constexpr int _bufferSize        = _bytesPerBlock + _dataOffset;
+    static constexpr int _blocks            = (_width * _height) / (8 * _bytesPerBlock);
+    static constexpr int _columnsPerBlock   = _bytesPerBlock;
+    static constexpr int _columnsPerRow     = _width / _columnsPerBlock;
 
 public:
     Oled_128x64(const std::string& device, uint8_t address);
